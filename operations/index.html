@@ -207,15 +207,16 @@ extra_js:
           <label for="reg-aircraft">Aircraft Module <span class="required">*</span></label>
           <select id="reg-aircraft" name="aircraft" class="form-control" required>
             <option value="" disabled selected>Select your aircraft…</option>
-            <option>F/A-18C Hornet</option>
-            <option>F-16C Viper</option>
-            <option>F-14A/B Tomcat</option>
             <option>A-10C II Warthog</option>
+            <option>F-16C Viper</option>
+            <option>F/A-18C Hornet</option>
+            <option>F-14A/B Tomcat</option>
             <option>AV-8B Harrier</option>
             <option>F-15C Eagle</option>
+            <option>F-15E Strike Eagle</option>
             <option>Su-27 Flanker</option>
-            <option>MiG-29 Fulcrum</option>
-            <option>Su-33 Flanker-D</option>
+            <option>MiG-29A Fulcrum</option>
+            <option>Su-33 Flanker</option>
             <option>Ka-50 Black Shark</option>
             <option>Mi-24P Hind</option>
             <option>UH-1H Huey</option>
@@ -248,7 +249,7 @@ extra_js:
         <div class="form-group">
           <label class="form-check">
             <input type="checkbox" id="reg-notify" name="notify" value="yes" checked>
-            <span class="form-check__label">Send me briefing details via Discord DM</span>
+            <span class="form-check__label">Send me Briefing Details via Discord DM</span>
           </label>
         </div>
 
@@ -275,7 +276,7 @@ extra_js:
       <div class="reg-success">
         <div class="reg-success__icon">✅</div>
         <h3 id="success-title">You're Registered!</h3>
-        <p>Your registration has been submitted. Check your Discord for the full briefing package. See you in the skies, pilot!</p>
+        <p>Your registration has been submitted. See you in the skies, pilot!</p>
         <div style="margin-top:24px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
           <a href="{{ site.squadron.discord_invite }}"
              class="btn btn--discord"

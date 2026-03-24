@@ -40,7 +40,7 @@
       slots: 10
       filled: 0  
     - name: "Intercept"
-      aircraft: "F-14B Tomcat"
+      aircraft: "F-14A/B Tomcat"
       slots: 10
       filled: 0
     - name: "Escort"
@@ -66,7 +66,7 @@
   duration: "2–3 hours"
   difficulty: "Intermediate"
   slots_total: 20
-  slots_filled: 1
+  slots_filled: 0
   description: >
     Your task is to destroy a variety of targets that are generated randomly. 
     This mission is a low level mission flying through the canyons of Caucasus with routes that are randomised by threat level. 
@@ -81,16 +81,16 @@
     - "Intercept and defeat enemy strike aircraft"
     - "Protect friendlies"
   roles:
-    - name: "HYDRA - SEAD"
+    - name: "SEAD"
       aircraft: "F-16C Viper"
       slots: 4
       filled: 0
-    - name: "MEDUSA - STRIKE"
+    - name: "STRIKE"
       aircraft: "F/A-18C Hornet"
       slots: 4
       filled: 0
-    - name: "CERBERUS - CAS"
-      aircraft: "F-14B Tomcat"
+    - name: "CAS"
+      aircraft: "F-14A/B Tomcat"
       slots: 4
       filled: 0
   patch_image: "/assets/images/masked_hydra.png"
