@@ -27,7 +27,7 @@ squadron:
   #                     Leave blank ("") to show a success message without posting to Discord.
   discord_invite: "https://discord.gg/GTjsyAMVyv"
   discord_widget_id: "1298769240874029106"
-  discord_webhook: "***REDACTED***"   # Paste your webhook URL here to enable registration notifications
+  discord_webhook: ""   # Paste your webhook URL here to enable registration notifications
 
 # Registration backend (recommended for slot enforcement + Sheets + Discord)
 registration:
@@ -35,7 +35,7 @@ registration:
   endpoint: "https://bhs-registration.bluehorizonsquadron.workers.dev/register"
   # Optional shared secret; if set, the site will send it as X-BHS-Auth.
   # Leave blank until your Worker is configured.
-  shared_secret: "***REDACTED***"
+  shared_secret: ""
 
 # Author
 author:
