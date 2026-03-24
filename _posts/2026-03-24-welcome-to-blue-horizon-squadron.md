@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "Welcome to Blue Horizon Squadron"
-date: 2024-01-15 12:00:00 +0000
-author: "Phantom — Squadron Commander"
+date: 2026-03-24 03:18 +0000
+author: "Capra"
 category: "Announcement"
 tags:
   - Welcome
