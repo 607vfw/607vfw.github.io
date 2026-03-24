@@ -2,6 +2,8 @@
 layout: default
 title: Home
 description: "607 Virtual Fighter Wing — DCS virtual squadron. Join us for semi-milsim air combat operations, training, and community."
+extra_js:
+  - /assets/js/operations.js
 ---
 
 <!-- ============================================================
@@ -168,7 +170,7 @@ description: "607 Virtual Fighter Wing — DCS virtual squadron. Join us for sem
     <div class="operations-grid" style="max-width:800px; margin:40px auto 0;">
       {% for op in site.data.operations limit:2 %}
       {% if op.status == 'upcoming' or op.status == 'active' or op.status == 'planning' %}
-      <div class="op-card" data-status="{{ op.status }}">
+      <div class="op-card" data-status="{{ op.status }}" id="{{ op.id }}">
         <div class="op-card__header">
           <div class="op-card__title-area">
             <div class="op-card__codename">{{ op.codename }}</div>
@@ -189,14 +191,23 @@ description: "607 Virtual Fighter Wing — DCS virtual squadron. Join us for sem
               <li class="op-card__meta-item"><span class="icon">⏱</span> {{ op.duration }}</li>
               <li class="op-card__meta-item"><span class="icon">⚡</span> {{ op.difficulty }}</li>
             </ul>
-            <div class="op-card__slots">
+
+            <!-- Hidden role keys so operations.js can pass them to /ops-status for trusted totals -->
+            <div hidden>
+              {% for role in op.roles %}
+              {% assign role_key = role.name | append: '|' | append: role.aircraft %}
+              <span data-role-key="{{ role_key | escape }}"></span>
+              {% endfor %}
+            </div>
+
+            <div class="op-card__slots" data-op-id="{{ op.id }}" data-op-slots-total="{{ op.slots_total }}" data-op-slots-filled="{{ op.slots_filled }}">
               {% assign pct = op.slots_filled | times: 100 | divided_by: op.slots_total %}
-              <div class="op-card__slots-label">Slots filled</div>
+              <div class="op-card__slots-label">Overall registration ({{ op.slots_filled }}/{{ op.slots_total }} pilots)</div>
               <div class="op-card__slots-bar">
-                <div class="op-card__slots-fill{% if pct >= 100 %} full{% elsif pct >= 80 %} almost{% endif %}"
-                     style="width: {{ pct }}%"></div>
+                <div class="op-card__slots-fill" data-op-slots-pct="{{ pct }}" style="width:0%"></div>
               </div>
-              <div class="op-card__slots-text">{{ op.slots_filled }} / {{ op.slots_total }} pilots registered</div>
+              {% assign slots_remaining = op.slots_total | minus: op.slots_filled %}
+              <div class="op-card__slots-text">{{ slots_remaining }} slot{% if slots_remaining != 1 %}s{% endif %} remaining</div>
             </div>
           </div>
         </div>
