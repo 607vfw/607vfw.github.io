@@ -37,6 +37,6 @@ It's that simple. No spreadsheets, no DMs to leadership, just click and fly.
 
 Everything else happens on Discord — voice comms during ops, debriefs, training sessions, and general squadron banter. If you haven't joined yet, click the Discord button in the nav bar.
 
-*Blue Horizon Squadron — Fly High. Fight Hard. Fly Together.*
+*607 Virtual Fighter Wing — Fly High. Fight Hard. Fly Together.*
 
-— **Capra**, Squadron Commander
+— **Capra**
