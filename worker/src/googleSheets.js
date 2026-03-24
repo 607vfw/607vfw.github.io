@@ -51,10 +51,12 @@ export async function upsertRegistrationRow(env, data) {
   // Ensure header exists
   await ensureHeader(env, accessToken, sheetName);
 
+  const norm = (v) => String(v ?? '').trim();
+
   const key = {
-    operation_id: String(data.operation_id || ''),
-    discord: String(data.discord || ''),
-    callsign: String(data.callsign || '')
+    operation_id: norm(data.operation_id),
+    discord: norm(data.discord),
+    callsign: norm(data.callsign)
   };
 
   // Pull all rows (simple + reliable for modest volume)
@@ -85,9 +87,9 @@ export async function upsertRegistrationRow(env, data) {
   let foundRowIndex = -1; // 1-based for Sheets
   for (let i = 1; i < rows.length; i++) { // skip header row
     const r = rows[i] || [];
-    const op = r[1] || '';
-    const discord = r[3] || '';
-    const callsign = r[4] || '';
+    const op = norm(r[1]);
+    const discord = norm(r[3]);
+    const callsign = norm(r[4]);
     if (op === wantOp && discord === wantDiscord && callsign === wantCallsign) {
       foundRowIndex = i + 1;
       break;
@@ -97,13 +99,13 @@ export async function upsertRegistrationRow(env, data) {
   const rowValues = [[
     new Date().toISOString(),
     wantOp,
-    String(data.operation_name || ''),
+    norm(data.operation_name),
     wantDiscord,
     wantCallsign,
-    String(data.role || ''),
-    String(data.aircraft || ''),
-    String(data.experience || ''),
-    String(data.notes || ''),
+    norm(data.role),
+    norm(data.aircraft),
+    norm(data.experience),
+    norm(data.notes),
     data.notify ? 'yes' : 'no',
     new Date().toISOString()
   ]];
