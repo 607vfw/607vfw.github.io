@@ -103,3 +103,50 @@
     - "Multi-Role"
     - "SEAD"
     - "Strike"
+- id: op-003
+  codename: "Through The Inferno"
+  title: "TTI Training"
+  theater: "Modern"
+  map: "Caucasus"
+  status: "upcoming"
+  date: "2026-04-25"
+  time: "18:00 ZULU"
+  duration: "2–3 hours"
+  difficulty: "Intermediate"
+  slots_total: 20
+  slots_filled: 0
+  description: >
+    Through the Inferno private hosted training session.
+  objectives:
+    - Whatever TTI throws at you, take it out.
+  roles:
+    - name: "SEAD"
+      aircraft: "F-16C Viper"
+      slots: 8
+      filled: 0
+    - name: "SEAD"
+      aircraft: "FA/18-C Hornet"
+      slots: 8
+      filled: 0
+    - name: "STRIKE"
+      aircraft: "F-4E Phantom"
+      slots: 4
+      filled: 0
+    - name: "CAS"
+      aircraft: "A-10C II Warthog"
+      slots: 4
+      filled: 0
+    - name: "CAP"
+      aircraft: "F14A/B Tomcat"
+      slots: 4
+      filled: 0
+    - name: "CAP"
+      aircraft: "F-15C Eagle"
+      slots: 4
+      filled: 0
+  patch_image: "/assets/images/tti.png"
+  tags:
+    - "Caucasus"
+    - "Multi-Role"
+    - "SEAD"
+    - "Strike"
