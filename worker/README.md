@@ -127,3 +127,42 @@ The Worker appends one row per registration:
 - Notify
 
 You can change the order in `worker/src/googleSheets.js`.
+
+## Safe deployments + required bindings (important)
+
+This Worker relies on variables/bindings you set in the Cloudflare Dashboard (KV + Google Sheets IDs, allowed origins, etc.).
+
+When deploying from this repo, always use:
+
+- `wrangler deploy --keep-vars`
+
+If Wrangler shows a warning that local config differs from remote config, **do not** proceed without `--keep-vars` unless you intentionally want to replace the dashboard settings.
+
+### Required Cloudflare bindings
+
+- Durable Object: `REG_STORE` → class `RegistrationStore`
+- KV namespace binding name **must** be: `OPS_CONFIG`
+  - KV must contain key: `OPS_CONFIG_JSON`
+
+### Required secrets / variables
+
+Secrets (Dashboard → Worker → Settings → Variables → Secrets):
+
+- `BHS_SHARED_SECRET`
+- `DISCORD_WEBHOOK_URL` (optional)
+- `GOOGLE_SERVICE_ACCOUNT_JSON` (required for Sheets)
+
+Plain variables (Dashboard → Worker → Settings → Variables):
+
+- `GSHEET_ID` (required for Sheets)
+- `GSHEET_TAB` (required for Sheets)
+- `ALLOWED_ORIGINS` (recommended)
+
+### Helpful admin endpoints (protected by X-BHS-Auth)
+
+- `GET /admin/config-status` — confirms KV + vars are present at runtime
+- `POST /admin/reset` with body `{ "operation_id": "op-001" }` — clears stored regs/roles for that operation
+
+Quick runtime verification (requires `BHS_SHARED_SECRET`):
+
+- `GET /admin/config-status`

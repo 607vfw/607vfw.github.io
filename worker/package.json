@@ -1,0 +1,12 @@
+{
+  "name": "bhs-registration-worker",
+  "private": true,
+  "scripts": {
+    "deploy:safe": "wrangler deploy --keep-vars",
+    "deploy": "wrangler deploy",
+    "deploy:version": "wrangler versions deploy --name bhs-registration --percentage 100 -y"
+  },
+  "devDependencies": {
+    "wrangler": "^4.76.0"
+  }
+}

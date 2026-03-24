@@ -8,3 +8,9 @@ Gemfile.lock
 
 # Cloudflare Wrangler
 worker/.wrangler/
+
+# Worker dependencies / generated files
+worker/node_modules/
+worker/package-lock.json
+worker/worker-configuration.d.ts
+worker/tools/ops-config.json

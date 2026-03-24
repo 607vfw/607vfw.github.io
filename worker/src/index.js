@@ -14,6 +14,32 @@ import { jsonResponse, readJson, requireAuth, corsHeaders, isAllowedOrigin } fro
 import { postDiscord } from './discord.js';
 import { upsertRegistrationRow } from './googleSheets.js';
 
+async function getOpsConfigStatus(env) {
+  const status = {
+    hasKvBinding: Boolean(env.OPS_CONFIG),
+    hasOpsConfigJsonKey: null,
+    opsConfigJsonBytes: null,
+    opsConfigOpIds: null,
+    error: null,
+  };
+
+  if (!env.OPS_CONFIG) return status;
+
+  try {
+    const raw = await env.OPS_CONFIG.get('OPS_CONFIG_JSON');
+    status.hasOpsConfigJsonKey = Boolean(raw);
+    status.opsConfigJsonBytes = raw ? raw.length : 0;
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      status.opsConfigOpIds = Object.keys(parsed);
+    }
+  } catch (e) {
+    status.error = e?.message || String(e);
+  }
+
+  return status;
+}
+
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
@@ -24,6 +50,99 @@ export default {
 
     if (request.method === 'OPTIONS') {
       return new Response(null, { status: 204, headers: corsHeaders(allowOrigin) });
+    }
+
+    // Admin: reset operation state (protected)
+    // POST /admin/reset  { operation_id: "op-001" }
+    // POST /admin/reset  { all: true }    (dangerous)
+    if (url.pathname === '/admin/reset' && request.method === 'POST') {
+      try {
+        requireAuth(request, env);
+        const body = await readJson(request);
+
+        const resetAll = Boolean(body.all);
+        const operationId = body.operation_id ? String(body.operation_id) : null;
+        if (!resetAll && (!operationId || operationId.trim() === '')) {
+          return jsonResponse({ ok: false, message: 'Missing operation_id (or set all=true).' }, 400, allowOrigin);
+        }
+
+        // Basic guard rails
+        if (resetAll && String(env.ALLOW_ADMIN_RESET_ALL || '').toLowerCase() !== 'true') {
+          return jsonResponse({ ok: false, message: 'Reset-all disabled.' }, 403, allowOrigin);
+        }
+
+        let cleared = 0;
+
+        if (resetAll) {
+          // NOTE: there is no list() for Durable Objects; we can only reset known IDs.
+          // This path is kept for completeness but requires you to supply op ids elsewhere.
+          return jsonResponse({ ok: false, message: 'Reset-all is not supported without an operation id list.' }, 400, allowOrigin);
+        }
+
+        const id = env.REG_STORE.idFromName(String(operationId));
+        const stub = env.REG_STORE.get(id);
+        const res = await stub.fetch('https://do/admin/reset', {
+          method: 'POST',
+          // Forward bindings DO may need (not strictly required for reset)
+          env: { OPS_CONFIG: env.OPS_CONFIG },
+        });
+
+        if (!res.ok) {
+          const j = await res.json().catch(() => null);
+          return jsonResponse({ ok: false, message: j?.message || 'Reset failed.' }, res.status, allowOrigin);
+        }
+
+        cleared = 1;
+        return jsonResponse({ ok: true, cleared, operation_id: String(operationId) }, 200, allowOrigin);
+      } catch (e) {
+        return jsonResponse({ ok: false, message: e?.message || 'Unauthorized' }, 401, allowOrigin);
+      }
+    }
+
+    // Admin: config status (protected)
+    if (url.pathname === '/admin/config-status' && request.method === 'GET') {
+      try {
+        requireAuth(request, env);
+
+        console.log('[config-status] version check', {
+          hasOpsConfig: Boolean(env.OPS_CONFIG),
+          hasRegStore: Boolean(env.REG_STORE),
+        });
+
+        let raw = null;
+        let parsed = null;
+        let err = null;
+        try {
+          raw = env.OPS_CONFIG ? await env.OPS_CONFIG.get('OPS_CONFIG_JSON') : null;
+          parsed = raw ? JSON.parse(raw) : null;
+        } catch (e) {
+          err = e?.message || String(e);
+          console.log('[config-status] ops config read error', err);
+        }
+
+        return jsonResponse(
+          {
+            ok: true,
+            opsConfig: {
+              hasKvBinding: Boolean(env.OPS_CONFIG),
+              hasOpsConfigJsonKey: raw != null,
+              opsConfigJsonBytes: raw ? raw.length : null,
+              opsConfigOpIds: parsed ? Object.keys(parsed) : null,
+              error: err,
+            },
+            envChecks: {
+              hasDiscordWebhook: Boolean(env.DISCORD_WEBHOOK_URL),
+              hasGSheetId: Boolean(env.GSHEET_ID),
+              hasGSheetTab: Boolean(env.GSHEET_TAB),
+              hasGoogleServiceAccountJson: Boolean(env.GOOGLE_SERVICE_ACCOUNT_JSON),
+            },
+          },
+          200,
+          allowOrigin
+        );
+      } catch (e) {
+        return jsonResponse({ ok: false, message: e?.message || 'Unauthorized' }, 401, allowOrigin);
+      }
     }
 
     if (url.pathname === '/register' && request.method === 'POST') {
@@ -53,6 +172,11 @@ export default {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(body),
+          // Forward bindings the DO needs (KV for trusted capacities)
+          env: {
+            OPS_CONFIG: env.OPS_CONFIG,
+            ALLOW_CLIENT_ROLE_SLOTS: env.ALLOW_CLIENT_ROLE_SLOTS,
+          },
         });
 
         const storeJson = await storeRes.json().catch(() => ({ ok: false, message: 'Store error' }));

@@ -21,6 +21,16 @@ export class RegistrationStore {
 
   async fetch(request) {
     const url = new URL(request.url);
+
+    if (url.pathname === '/admin/reset' && request.method === 'POST') {
+      const res = await this.state.blockConcurrencyWhile(async () => {
+        await this.state.storage.delete('roles');
+        await this.state.storage.delete('regs');
+        return jsonResponse({ ok: true }, 200, '*');
+      });
+      return res;
+    }
+
     if (url.pathname === '/register' && request.method === 'POST') {
       const body = await readJson(request);
       const res = await this.state.blockConcurrencyWhile(async () => {
