@@ -1,4 +1,60 @@
 - id: op-001
+  codename: "Exercise Black Flag"
+  title: "Black Flag"
+  theater: "Caucasus"
+  map: "Caucasus"
+  status: "continuous"
+  date: "Every Day"
+  time: "Any Time"
+  duration: "no limit"
+  difficulty: "easy"
+  slots_total: 60
+  slots_filled: 0
+  description: >
+    Exercise Black Flag is the mission that is constantly on our server. There is no sign up requirement, come and join and fly with us.
+    Currently we're reworking the entire campaign from ground up however at this moment in time there are plenty of SAM sites around and Air to Air targets
+    which you can practice on.
+  objectives:
+    - "Destroy SAM Sites"
+    - "Fly Formation"
+    - "Air to Air Refuelling"
+    - "Carrier Ops (Case I, II)"
+    - Engage Enemy CAP Flights
+    - "Free Flight"
+    - "Practice BFM"
+  roles:
+    - name: "SEAD"
+      aircraft: "F-16C Viper"
+      slots: 5
+      filled: 0
+    - name: "SEAD"
+      aircraft: "F/A-18C Hornet"
+      slots: 5
+    - name: "STRIKE"
+      aircraft: "F-15E"
+      slots: 5
+      filled: 0
+    - name: "STRIKE"
+      aircraft: "F-4E Phantom"
+      slots: 5
+      filled: 0  
+    - name: "Intercept"
+      aircraft: "F-14B Tomcat"
+      slots: 5
+      filled: 0
+    - name: "Escort"
+      aircraft: "F-15C"
+      slots: 5
+      filled: 0
+  patch_image: "/bhs.github.io/assets/images/bhs-black-flag.png"
+  tags:
+    - "Caucasus"
+    - "Multi-Role"
+    - "SEAD"
+    - "Strike"
+    - "BFM"
+    - "BVR"
+- id: op-002
   codename: "OPERATION MASKED HYDRA"
   title: "Masked Hydra - Canyon Runs"
   theater: "Caucasus"
