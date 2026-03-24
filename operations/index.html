@@ -6,6 +6,12 @@ extra_js:
   - /assets/js/operations.js
 ---
 
+{% comment %}
+  Sort operations by date so display order doesn't depend on YAML order.
+  Expecting `op.date` to be an ISO-ish string like YYYY-MM-DD.
+{% endcomment %}
+{% assign ops_sorted = site.data.operations | sort: 'date' | reverse %}
+
 <div class="page-header">
   <div class="container">
     <h1>Operations</h1>
@@ -26,7 +32,7 @@ extra_js:
   </div>
 
   <div class="operations-grid" id="ops-list">
-    {% for op in site.data.operations %}
+    {% for op in ops_sorted %}
     <div class="op-card" data-status="{{ op.status }}" id="{{ op.id }}">
 
       <div class="op-card__header">

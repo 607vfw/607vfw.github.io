@@ -168,8 +168,11 @@ extra_js:
     <p class="section-subtitle">Register for the next mission</p>
 
     <div class="operations-grid" style="max-width:800px; margin:40px auto 0;">
-      {% for op in site.data.operations limit:2 %}
+      {% assign ops_sorted = site.data.operations | sort: 'date' | reverse %}
+      {% for op in ops_sorted %}
       {% if op.status == 'upcoming' or op.status == 'active' or op.status == 'planning' %}
+      {% if shown %}{% else %}{% assign shown = 0 %}{% endif %}
+      {% if shown < 2 %}
       <div class="op-card" data-status="{{ op.status }}" id="{{ op.id }}">
         <div class="op-card__header">
           <div class="op-card__title-area">
@@ -220,6 +223,8 @@ extra_js:
           </a>
         </div>
       </div>
+      {% assign shown = shown | plus: 1 %}
+      {% endif %}
       {% endif %}
       {% endfor %}
     </div>
