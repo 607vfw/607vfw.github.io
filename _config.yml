@@ -35,7 +35,7 @@ registration:
   endpoint: "https://bhs-registration.bluehorizonsquadron.workers.dev/register"
   # Optional shared secret; if set, the site will send it as X-BHS-Auth.
   # Leave blank until your Worker is configured.
-  shared_secret: "bhs_5Vh2w2c8G9f4Kq7Rn1s3Tz6Yp0Lm8Xu4Da9Ne2Jc7Qv"
+  shared_secret: "***REDACTED***"
 
 # Author
 author:
