@@ -39,10 +39,14 @@
       aircraft: "F-4E Phantom"
       slots: 10
       filled: 0  
-    - name: "Intercept"
+    - name: "CAP"
       aircraft: "F-14A/B Tomcat"
-      slots: 10
+      slots: 5
       filled: 0
+    - name: "CAP"
+      aircraft: "F-16C Viper"
+      slots: 5
+      filled: 0 
     - name: "Escort"
       aircraft: "F-15C"
       slots: 10

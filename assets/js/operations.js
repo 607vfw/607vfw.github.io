@@ -124,12 +124,12 @@
 
     const roleIcons = {
       'flight lead': '👑',
-      'wingman':     '✈️',
+      'intercept':     '✈️',
       'sead':        '🎯',
       'dead':        '💣',
       'cas':         '🔫',
       'cap':         '🛡️',
-      'escort':      '🛡️',
+      'escort':      '✈️',
       'strike':      '💥',
       'anti-ship':   '🚢',
       'awacs':       '📡',
