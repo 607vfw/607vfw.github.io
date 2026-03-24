@@ -46,7 +46,7 @@
       aircraft: "F-15C"
       slots: 5
       filled: 0
-  patch_image: "/bhs.github.io/assets/images/bhs-black-flag.png"
+  patch_image: "/assets/images/bhs-black-flag.png"
   tags:
     - "Caucasus"
     - "Multi-Role"
@@ -92,7 +92,7 @@
       aircraft: "F-14B Tomcat"
       slots: 4
       filled: 0
-  patch_image: "/bhs.github.io/assets/images/masked_hydra.png"
+  patch_image: "/assets/images/masked_hydra.png"
   tags:
     - "Caucasus"
     - "Multi-Role"
