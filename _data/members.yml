@@ -66,7 +66,7 @@
   terrains:
     - "Unknown"
   joined: "2025"
-  status: "inactive"
+  status: "active"
   initials: "KS"
 
 - callsign: "Vaux"
@@ -114,7 +114,7 @@
     - "Ground Attack"
     - "CAS"
   joined: "2025"
-  status: "inactive"
+  status: "active"
   initials: "AN"
 
 - callsign: "Analog"
@@ -133,7 +133,7 @@
     - "Persian Gulf"
     - "Syria"
   joined: "2025"
-  status: "inactive"
+  status: "active"
   initials: "AN"
 
 - callsign: "Magic"
@@ -150,5 +150,5 @@
   terrains:
     - "Unknown"
   joined: "2025"
-  status: "inactive"
+  status: "active"
   initials: "AN"
