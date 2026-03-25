@@ -200,7 +200,7 @@
     name: "Blue Horizon Squadron"
     patch: "/assets/images/bhs-digital-patch.png"
   joined: "2025-04-26"
-  status: "active"
+  status: "inactive"
 
 - callsign: "Analog"
   initials: "AN"
@@ -224,7 +224,7 @@
     name: "Blue Horizon Squadron"
     patch: "/assets/images/bhs-digital-patch.png"
   joined: "2025-07-14"
-  status: "active"
+  status: "inactive"
 
 - callsign: "ACE"
   initials: "AM"
