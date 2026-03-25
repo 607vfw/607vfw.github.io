@@ -61,7 +61,7 @@ extra_js:
           <p class="op-card__description">{{ op.description }}</p>
 
           <ul class="op-card__meta-list">
-            <li class="op-card__meta-item"><span class="icon">📅</span> Date: <strong>{{ op.date | date: "%-d %b %Y "}}</strong></li>
+            <li class="op-card__meta-item"><span class="icon">📅</span> Date: <strong>{{ op.date | date: "%A %-d %b %Y "}}</strong></li>
             <li class="op-card__meta-item"><span class="icon">🕐</span> Time: <strong>{{ op.time }}</strong></li>
             <li class="op-card__meta-item"><span class="icon">⏱</span> Duration: {{ op.duration }}</li>
             <li class="op-card__meta-item"><span class="icon">⚡</span> Difficulty: {{ op.difficulty }}</li>
