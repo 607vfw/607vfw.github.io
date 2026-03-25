@@ -12,7 +12,7 @@ baseurl: ""
 squadron:
   name: "607 Virtual Fighter Wing"
   short_name: "607 VFW"
-  designation: "607"
+  designation: "607 VFW"
   founded: "2024"
   motto: "Fly High. Fight Hard. Fly Together."
   # ── Discord Configuration ──────────────────────────────────────────────────
